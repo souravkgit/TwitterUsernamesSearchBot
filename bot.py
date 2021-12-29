@@ -34,7 +34,7 @@ def getargs(text):
 # First command for /start button 
 @bot.message_handler(commands=["start"])
 def sayhello(message):
-    RUNI.clear()
+    RUNI.clear(-1)
     bot.send_message(message.chat.id,"Hello Hooman , Welcome to my Bot\n Use Given Commands to explore me!")
 
 # Second command for /help button
@@ -64,7 +64,7 @@ def nametolink(message):
     for each in text:
         if (RUNI[-1] == "stop"):
             bot.send_message(message.chat.id,"Okay Sire!! Stopping bot as you said!!")
-            RUNI.pop()
+            RUNI.pop(-1)
             time.sleep(4)
             break 
         if (each[0]=='@'):
@@ -80,13 +80,12 @@ def nametolink(message):
 
 # Fifth command for /search button ---> Helps to search for availability of any username on twitter
 @bot.message_handler(commands=["s","search"])
-def nametolink(message):
+def namesearch(message):
     RUNI.append("run")
     args = getargs(message.text)
     text = " ".join(args[0:])
     if len(text)>800:
         bot.send_message(message.chat.id,"Whoaa kid! Have some patience and give some less usernames to search!!")
-        RUNI.pop()
         return
     text = list(text.split())
     remain = []
@@ -99,6 +98,7 @@ def nametolink(message):
     for each in text:
         if (RUNI[-1] == "stop"):
             bot.send_message(message.chat.id,"Okay Sire!! Stopping bot as you said!!")
+            RUNI.pop(-1)
             time.sleep(2)
             break
         try:
